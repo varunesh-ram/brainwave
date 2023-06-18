@@ -1,35 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {ReactComponent as Bulb} from './bulb.svg';
-import cloud1 from './cloud1.png';
-import cloud2 from './cloud2.png';
-import cloud3 from './cloud3.png';
-import cloud4 from './cloud4.png';
-import cloud5 from './cloud5.png';
 import useMountTransition from "./useMountTransition";
+import DetailsPageWithMenu from "./DetailsPageWithMenu";
 
 function App() {
-    const [borderStyle,setBorderStyle]= useState("button-dashed");
-    const [isLoadingPage,setIsLoadingPage]= useState(true);
-    const [isAgendaPage,setIsAgendaPage]= useState(false);
+    const [borderStyle, setBorderStyle] = useState("button-dashed");
+    const [isLoadingPage, setIsLoadingPage] = useState(true);
+    const [isAgendaPage, setIsAgendaPage] = useState(false);
+    const [isTeamsPage, setIsTeamsPage] = useState(false);
 
     const [isMounted, setIsMounted] = useState(true);
     const hasTransitionedIn = useMountTransition(isMounted, 200);
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            setBorderStyle(borderStyle==="button-dashed"? "button-solid":"button-dashed");
-        },300)
-    },[borderStyle])
+    useEffect(() => {
+        setTimeout(() => {
+            setBorderStyle(borderStyle === "button-dashed" ? "button-solid" : "button-dashed");
+        }, 300)
+    }, [borderStyle])
 
     useEffect(() => {
-        if(isLoadingPage){
+        if (isLoadingPage) {
             document.body.style.overflow = "hidden";
-        }
-        else{
+        } else {
             document.body.style.overflow = "scroll"
         }
-    },[isLoadingPage]);
+    }, [isLoadingPage]);
     return (
         <div
             style={{
@@ -40,26 +36,27 @@ function App() {
                 justifyContent: 'center',
             }}
         >
-            {isLoadingPage && (hasTransitionedIn || isMounted)  &&
-            <div className={`title ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}>
-                <div className={`bulb_container ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}><Bulb/></div>
-                <div className={`title_container ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}>
-                    <div className="title_text">
-                        brai <a className={borderStyle} style={{color:"gold",zIndex:"999"}} onClick={(e)=>{
+            {isLoadingPage && (hasTransitionedIn || isMounted) &&
+                <div className={`title ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}>
+                    <div className={`bulb_container ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}><Bulb/>
+                    </div>
+                    <div className={`title_container ${hasTransitionedIn && 'in'} ${isMounted && 'visible'}`}>
+                        <div className="title_text">
+                            brai <a className={borderStyle} style={{color: "gold", zIndex: "999"}} onClick={(e) => {
                             e.preventDefault();
                             console.log("clicked");
                             setIsLoadingPage(false);
                             setIsAgendaPage(true);
                         }}>NW</a> ave 3.0
+                        </div>
+                        <div className="left_subtext">
+                            Transforming IDEAs into REALity
+                        </div>
                     </div>
-                    <div className="left_subtext">
-                        Transforming IDEAs into REALity
-                    </div>
-                </div>
-            </div>}
-            {isAgendaPage &&
+                </div>}
+            {(isAgendaPage || isTeamsPage) &&
                 <div>
-                    <div className="he"></div>
+                    <DetailsPageWithMenu isAgendaPage={isAgendaPage} setIsAgendaPage={setIsAgendaPage} isTeamsPage={isTeamsPage} setIsTeamsPage={setIsTeamsPage}/>
                 </div>}
 
             {/*<div className="clouds">
