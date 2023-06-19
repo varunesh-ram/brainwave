@@ -16,13 +16,8 @@ import LunchDiningIcon from '@mui/icons-material/LunchDining';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import Typography from '@mui/material/Typography';
 import {returnCurrentEvent, returnFutureEvent, returnPastEvent} from "./utility";
-import {useEffect} from "react";
 
 export default function DayOne() {
-    //const [currentEvent, setCurrentEvent] = useState("breakfast");
-
-    useEffect(() => {
-    }, []);
 
     const getColorProperty = (event, section) => {
         let dateToTest = 19;
